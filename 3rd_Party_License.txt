@@ -1,0 +1,32 @@
+THIRD-PARTY SOFTWARE LICENSES FOR "BOOKMARKS" APPLICATION
+
+The "Bookmarks" application incorporates various third-party software components, each governed by its respective open-source license. Below is a summary of these licenses, adapted for inclusion in this project. This file does not alter the original licenses of the third-party software but provides a consolidated reference.
+
+---
+
+1. General MIT License for Third-Party Components
+   Applies to: Flask, Flask-SQLAlchemy, Flask-Login, Flask-Mail, Werkzeug, and other Python libraries used in the "Bookmarks" application.
+
+   Copyright (c) [Original Authors of Respective Libraries]
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+2. Additional Third-Party Assets
+   - Favicon: "blue-books5.svg" from hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors (https://github.com/hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors)
+     - License: Assumed to be under a permissive license (e.g., MIT or Creative Commons) based on public GitHub availability. Users are advised to verify the original repository for specific terms.
+
+   - Google Fonts (Orbitron): Licensed under the SIL Open Font License 1.1 (https://scripts.sil.org/OFL). This font is free to use, modify, and distribute, provided the original copyright and license notices are retained.
+
+---
+
+Notes:
+- This application may include additional third-party JavaScript or CSS components (e.g., Cloudflare scripts observed in HTML). These are subject to their respective terms of service or licenses, available from their providers.
+- For a complete list of dependencies and their licenses, refer to the project's requirements.txt (if provided) or the documentation of each library.
+
+Last Updated: April 04, 2025

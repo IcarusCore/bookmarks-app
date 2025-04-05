@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel - Bookmarks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors/master/Blue-Collection/blue-books5.svg">
+    <style>
+        .user-list { margin-top: 20px; }
+        .user-item { 
+            padding: 10px; 
+            border-bottom: 1px solid #ccc; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            flex-wrap: wrap; /* Allow wrapping if needed */
+        }
+        .user-info { 
+            flex: 1; 
+            min-width: 300px; /* Ensure info doesn’t collapse too small */
+        }
+        .user-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; /* Space between action elements */
+            flex-wrap: wrap; /* Wrap actions if screen is narrow */
+        }
+        .action-btn { 
+            padding: 5px 10px; 
+            margin: 0; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-family: 'Orbitron', monospace;
+        }
+        .approve-btn { background-color: #28a745; color: white; }
+        .deny-btn { background-color: #dc3545; color: white; }
+        .delete-btn { background-color: #ff4444; color: white; }
+        .reset-btn { background-color: #007bff; color: white; }
+        .role-select { 
+            padding: 5px; 
+            border-radius: 5px; 
+            font-family: 'Orbitron', monospace; 
+            background: rgba(11, 19, 43, 0.8); 
+            color: #e0e1dd; 
+            border: 1px solid #778da9;
+        }
+        .action-btn:hover { opacity: 0.8; }
+        /* Widen the admin panel box */
+        .profile {
+            max-width: 1300px !important; /* Increased from 1000px to 1300px */
+        }
+        /* Override any stray .delete-btn positioning */
+        .delete-btn {
+            position: static !important; /* Prevent absolute positioning */
+            top: auto !important;
+            right: auto !important;
+        }
+        /* Disable the hover pseudo-element for delete buttons in admin panel */
+        .delete-btn:hover::after {
+            display: none !important; /* Remove the second "Delete" label on hover */
+        }
+    </style>
+    <script>
+        // Auto-submit role change form when selection changes
+        function submitRoleForm(userId) {
+            document.getElementById('role-form-' + userId).submit();
+        }
+    </script>
+</head>
+<body class="{{ 'theme-' + (session.theme or 'cyberpunk') }}">
+    <header>
+        <h1>Bookmarks</h1>
+        <div>
+            <span><a href="{{ url_for('main.bookmarks') }}" class="nav-link">Home</a></span>
+            <span><a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a></span>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="profile">
+            <h2>Admin Panel</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <h3>Pending Registrations</h3>
+            <div class="user-list">
+                {% for user in pending_users %}
+                    <div class="user-item">
+                        <span class="user-info"><strong>{{ user.username }}</strong> ({{ user.real_name or 'No name' }}, {{ user.email or 'No email' }})</span>
+                        <div class="user-actions">
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="approve" value="{{ user.id }}">
+                                <button type="submit" class="action-btn approve-btn">Approve</button>
+                            </form>
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="deny" value="{{ user.id }}">
+                                <button type="submit" class="action-btn deny-btn">Deny</button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>No pending registrations.</p>
+                {% endfor %}
+            </div>
+            <h3>Approved Users</h3>
+            <div class="user-list">
+                {% for user in approved_users %}
+                    <div class="user-item">
+                        <span class="user-info"><strong>{{ user.username }}</strong> ({{ user.real_name or 'No name' }}, {{ user.email or 'No email' }})</span>
+                        <div class="user-actions">
+                            <!-- Role Selection Form -->
+                            <form method="POST" id="role-form-{{ user.id }}" style="display: inline;">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <select name="role" class="role-select" onchange="submitRoleForm({{ user.id }})">
+                                    <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+                                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                                </select>
+                            </form>
+                            <!-- Delete Button -->
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="delete" value="{{ user.id }}">
+                                <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete {{ user.username }}?');">Delete</button>
+                            </form>
+                            <!-- Reset Password Button -->
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="reset_password" value="{{ user.id }}">
+                                <button type="submit" class="action-btn reset-btn" onclick="return confirm('Reset password for {{ user.username }} to \'ChangeMe123@\'?');">Reset Password</button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <p>No approved users to display.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>

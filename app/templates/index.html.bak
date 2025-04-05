@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Bookmarks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="{{ 'theme-' + (session.theme or 'cyberpunk') }}">
+    <header>
+        <h1>Bookmarks</h1>
+        <div>
+            <span><a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a></span>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Welcome, {{ display_name }}!</h2>
+            <p>This is your bookmarking homepage.</p>
+            <button><a href="{{ url_for('main.bookmarks') }}" class="button-link">Access Bookmarks</a></button>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Bookmarks | <a href="{{ url_for('main.privacy_policy') }}">Privacy Policy</a></p>
+    </footer>
+</body>
+</html>

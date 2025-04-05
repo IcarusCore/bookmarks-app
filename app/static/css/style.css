@@ -1,0 +1,907 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', monospace;
+}
+
+body {
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.3;
+}
+
+/* Theme: Cyberpunk */
+body.theme-cyberpunk {
+    background: #0d1b2a !important; /* Dark blue background */
+    color: #e0e1dd;
+}
+
+.theme-cyberpunk .login-container,
+.theme-cyberpunk .hero,
+.theme-cyberpunk .bookmarks,
+.theme-cyberpunk .profile,
+.theme-cyberpunk .bookmark-box,
+.theme-cyberpunk .user-item,
+.theme-cyberpunk .popup-content {
+    background: linear-gradient(135deg, #1b263b, #415a77);
+    border: 1px solid #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.theme-cyberpunk h1,
+.theme-cyberpunk h2,
+.theme-cyberpunk h3 {
+    color: #00ffff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.theme-cyberpunk .login-container button,
+.theme-cyberpunk .hero button,
+.theme-cyberpunk .profile button,
+.theme-cyberpunk .bookmark-form button,
+.theme-cyberpunk .admin-buttons a,
+.theme-cyberpunk .popup-content button,
+.theme-cyberpunk .logout-btn {
+    background: #00ffff;
+    color: #0d1b2a;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.theme-cyberpunk .login-container button:hover,
+.theme-cyberpunk .hero button:hover,
+.theme-cyberpunk .profile button:hover,
+.theme-cyberpunk .bookmark-form button:hover,
+.theme-cyberpunk .admin-buttons a:hover,
+.theme-cyberpunk .popup-content button:hover,
+.theme-cyberpunk .logout-btn:hover {
+    background: #00cccc;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+    color: #0d1b2a; /* Ensure text stays dark and readable */
+}
+
+.theme-cyberpunk .delete-btn {
+    color: #ff0066;
+}
+
+.theme-cyberpunk .delete-btn:hover::after {
+    background: #ff0066;
+}
+
+.theme-cyberpunk .edit-btn {
+    color: #00ffff;
+}
+
+.theme-cyberpunk .edit-btn:hover::after {
+    background: #00cccc;
+    color: #0d1b2a;
+}
+
+.theme-cyberpunk .logout-btn,
+.theme-cyberpunk .nav-link {
+    color: #00a6ff;
+}
+
+.theme-cyberpunk header,
+.theme-cyberpunk footer {
+    background: linear-gradient(90deg, #1b263b, #415a77);
+    border-color: #00ffff;
+}
+
+.theme-cyberpunk .bookmark-link {
+    border-color: #00ffff;
+}
+
+/* Theme: Garnet-Black (Crimson Abyss) */
+body.theme-garnet_black {
+    background: #1a0000 !important; /* Darker garnet background for better flow */
+    color: #ffffff;
+}
+
+.theme-garnet_black .login-container,
+.theme-garnet_black .hero,
+.theme-garnet_black .bookmarks,
+.theme-garnet_black .profile,
+.theme-garnet_black .bookmark-box,
+.theme-garnet_black .user-item,
+.theme-garnet_black .popup-content {
+    background: linear-gradient(135deg, #73000a, #2d0000); /* Adjusted gradient for contrast */
+    border: 1px solid #b3000f; /* Lighter garnet border */
+    box-shadow: 0 0 20px rgba(179, 0, 15, 0.3); /* Lighter garnet glow */
+}
+
+.theme-garnet_black h1,
+.theme-garnet_black h2,
+.theme-garnet_black h3 {
+    color: #ff4d4d; /* Brighter red for readability */
+    text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+}
+
+.theme-garnet_black .login-container button,
+.theme-garnet_black .hero button,
+.theme-garnet_black .profile button,
+.theme-garnet_black .bookmark-form button,
+.theme-garnet_black .admin-buttons a,
+.theme-garnet_black .popup-content button,
+.theme-garnet_black .logout-btn {
+    background: #b3000f; /* Lighter garnet buttons */
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(179, 0, 15, 0.5);
+}
+
+.theme-garnet_black .login-container button:hover,
+.theme-garnet_black .hero button:hover,
+.theme-garnet_black .profile button:hover,
+.theme-garnet_black .bookmark-form button:hover,
+.theme-garnet_black .admin-buttons a:hover,
+.theme-garnet_black .popup-content button:hover,
+.theme-garnet_black .logout-btn:hover {
+    background: #8c000c; /* Slightly darker hover */
+    box-shadow: 0 0 15px rgba(179, 0, 15, 0.7);
+    color: #ffffff; /* Ensure text stays white and readable */
+}
+
+.theme-garnet_black .delete-btn {
+    color: #ff4d4d; /* Brighter red for visibility */
+}
+
+.theme-garnet_black .delete-btn:hover::after {
+    background: #b3000f;
+}
+
+.theme-garnet_black .edit-btn {
+    color: #ff4d4d; /* Brighter red */
+}
+
+.theme-garnet_black .edit-btn:hover::after {
+    background: #8c000c;
+    color: #ffffff;
+}
+
+.theme-garnet_black .logout-btn,
+.theme-garnet_black .nav-link {
+    color: #ff4d4d; /* Brighter red */
+}
+
+.theme-garnet_black header,
+.theme-garnet_black footer {
+    background: linear-gradient(90deg, #73000a, #1a0000); /* Adjusted for flow */
+    border-color: #b3000f;
+}
+
+.theme-garnet_black .bookmark-link {
+    border-color: #b3000f;
+}
+
+.theme-garnet_black .bookmark-box label {
+    color: #ffffff; /* Ensure bookmark names are readable */
+}
+
+/* General styles */
+.login-container {
+    position: relative;
+    z-index: 1;
+    padding: 2.5rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 420px;
+    margin: auto;
+    animation: pulseGlow 2s infinite alternate;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.9rem;
+    margin: 0.8rem 0;
+    border: 1px solid #778da9;
+    border-radius: 5px;
+    background: rgba(11, 19, 43, 0.8);
+    font-size: 1rem;
+    color: #e0e1dd;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-container input:focus {
+    outline: none;
+    border-color: inherit;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.login-container button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase;
+}
+
+.error {
+    color: #ff4444;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-shadow: 0 0 3px rgba(255, 68, 68, 0.5);
+}
+
+.success {
+    color: #00ff00;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-shadow: 0 0 3px rgba(0, 255, 0, 0.5);
+}
+
+header {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header span {
+    font-size: 1.1rem;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.nav-link {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.logout-btn {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+main {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content at the top */
+    padding: 20px 20px 100px; /* Reduced top padding to raise content */
+    min-height: calc(100vh - 60px); /* Full height minus header/footer */
+}
+
+.hero {
+    padding: 4rem 2rem;
+    text-align: center;
+    margin: 1rem auto; /* Reduced margin to raise higher */
+    border-radius: 10px;
+    max-width: 800px;
+    animation: fadeIn 0.5s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.hero button {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase;
+}
+
+.button-link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.bookmarks {
+    padding: 2rem 1rem;
+    text-align: center;
+    margin: 1rem auto; /* Reduced margin to raise higher */
+    border-radius: 10px;
+    max-width: 1300px;
+    animation: fadeIn 0.5s ease-in-out;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 100px; /* Clearance for footer */
+}
+
+.bookmarks h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.bookmark-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.bookmark-box {
+    background: rgba(11, 19, 43, 0.8);
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #778da9;
+    width: 200px;
+    min-height: 150px;
+    transition: transform 0.2s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.bookmark-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.bookmark-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0.3rem;
+}
+
+.bookmark-box label {
+    color: #e0e1dd;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: auto;
+}
+
+.button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.status-dot.up {
+    background-color: #00ff00;
+}
+
+.status-dot.down {
+    background-color: #ff0000;
+}
+
+.bookmark-link {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid;
+    border-radius: 3px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.bookmark-link:hover {
+    background: inherit;
+    color: #0d1b2a;
+}
+
+.bookmark-form {
+    display: none; /* Hidden as it’s in popups */
+}
+
+.profile {
+    padding: 2rem; /* Reduced top/bottom padding to raise content */
+    text-align: center;
+    margin: 1rem auto; /* Reduced top margin to raise higher */
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1000px !important; /* Force max-width */
+    animation: fadeIn 0.5s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.profile h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-row input,
+.form-row select {
+    flex: 1 1 300px; /* Larger inputs */
+    padding: 10px;
+    margin: 0;
+    font-size: 16px;
+    border: 1px solid #778da9;
+    border-radius: 5px;
+    background: rgba(11, 19, 43, 0.8);
+    color: #e0e1dd;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+    outline: none;
+    border-color: inherit;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.profile button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase;
+    align-self: center;
+    width: auto;
+}
+
+.admin-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.admin-buttons a {
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.user-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    z-index: 2; /* Above content */
+}
+
+footer p {
+    font-size: 0.9rem;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    100% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.5); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    z-index: 1001;
+}
+
+.popup-content h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.popup-content input {
+    width: 100%;
+    padding: 0.9rem;
+    margin: 0.8rem 0;
+    border: 1px solid #778da9;
+    border-radius: 5px;
+    background: rgba(11, 19, 43, 0.8);
+    font-size: 1rem;
+    color: #e0e1dd;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.popup-content input:focus {
+    outline: none;
+    border-color: inherit;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.popup-content button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-decoration: none;
+    transform: translateY(-2px);
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+}
+
+.delete-btn:hover::after {
+    content: 'Delete';
+    position: absolute;
+    top: 20px;
+    right: 0;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.edit-btn {
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-decoration: none;
+    transform: translateY(-2px);
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.edit-btn:hover {
+    opacity: 1;
+}
+
+.edit-btn:hover::after {
+    content: 'Edit';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+/* Added rule for white link text on login and register pages */
+.login-container a {
+    color: #ffffff !important; /* White text for Register and Back to Login links */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.login-container a:hover {
+    color: #e0e1dd !important; /* Slightly off-white on hover */
+}
+
+/* Theme: Amethyst Abyss */
+body.theme-amethyst_abyss {
+    background: #1a0d2a !important; /* Dark grayish-purple background */
+    color: #e6ccff; /* Light purple text for readability */
+}
+
+.theme-amethyst_abyss .login-container,
+.theme-amethyst_abyss .hero,
+.theme-amethyst_abyss .bookmarks,
+.theme-amethyst_abyss .profile,
+.theme-amethyst_abyss .bookmark-box,
+.theme-amethyst_abyss .user-item,
+.theme-amethyst_abyss .popup-content {
+    background: linear-gradient(135deg, #2a1a4d, #4d2a7a); /* Purple gradient */
+    border: 1px solid #9b00ff; /* Neon purple border */
+    box-shadow: 0 0 20px rgba(155, 0, 255, 0.3); /* Purple glow */
+}
+
+.theme-amethyst_abyss h1,
+.theme-amethyst_abyss h2,
+.theme-amethyst_abyss h3 {
+    color: #9b00ff; /* Neon purple headings */
+    text-shadow: 0 0 5px rgba(155, 0, 255, 0.5);
+}
+
+.theme-amethyst_abyss .login-container button,
+.theme-amethyst_abyss .hero button,
+.theme-amethyst_abyss .profile button,
+.theme-amethyst_abyss .bookmark-form button,
+.theme-amethyst_abyss .admin-buttons a,
+.theme-amethyst_abyss .popup-content button,
+.theme-amethyst_abyss .logout-btn {
+    background: #9b00ff; /* Neon purple buttons */
+    color: #ffffff; /* White text on buttons */
+    box-shadow: 0 0 10px rgba(155, 0, 255, 0.5);
+}
+
+.theme-amethyst_abyss .login-container button:hover,
+.theme-amethyst_abyss .hero button:hover,
+.theme-amethyst_abyss .profile button:hover,
+.theme-amethyst_abyss .bookmark-form button:hover,
+.theme-amethyst_abyss .admin-buttons a:hover,
+.theme-amethyst_abyss .popup-content button:hover,
+.theme-amethyst_abyss .logout-btn:hover {
+    background: #cc66ff; /* Lighter purple on hover */
+    box-shadow: 0 0 15px rgba(155, 0, 255, 0.7);
+    color: #ffffff; /* Ensure text stays white and readable */
+}
+
+.theme-amethyst_abyss .delete-btn {
+    color: #ff0066; /* Pink for delete */
+}
+
+.theme-amethyst_abyss .delete-btn:hover::after {
+    background: #ff0066;
+}
+
+.theme-amethyst_abyss .edit-btn {
+    color: #9b00ff; /* Neon purple for edit */
+}
+
+.theme-amethyst_abyss .edit-btn:hover::after {
+    background: #cc66ff;
+    color: #ffffff;
+}
+
+.theme-amethyst_abyss .logout-btn,
+.theme-amethyst_abyss .nav-link {
+    color: #cc66ff; /* Lighter purple for links */
+}
+
+.theme-amethyst_abyss header,
+.theme-amethyst_abyss footer {
+    background: linear-gradient(90deg, #2a1a4d, #4d2a7a); /* Purple gradient */
+    border-color: #9b00ff;
+}
+
+.theme-amethyst_abyss .bookmark-link {
+    border-color: #9b00ff;
+}
+
+.theme-amethyst_abyss .bookmark-box label {
+    color: #e6ccff; /* Light purple for bookmark labels */
+}
+
+/* Theme: Quantum Blue */
+body.theme-quantum_blue {
+    background: #0d1a2a !important; /* Dark blue-black background */
+    color: #e6f2ff; /* Light blue text for readability */
+}
+
+.theme-quantum_blue .login-container,
+.theme-quantum_blue .hero,
+.theme-quantum_blue .bookmarks,
+.theme-quantum_blue .profile,
+.theme-quantum_blue .bookmark-box,
+.theme-quantum_blue .user-item,
+.theme-quantum_blue .popup-content {
+    background: linear-gradient(135deg, #1a2a4d, #2a4d7a); /* Blue gradient */
+    border: 1px solid #00b7eb; /* Electric blue border */
+    box-shadow: 0 0 20px rgba(0, 183, 235, 0.3); /* Blue glow */
+}
+
+.theme-quantum_blue h1,
+.theme-quantum_blue h2,
+.theme-quantum_blue h3 {
+    color: #00b7eb; /* Electric blue headings */
+    text-shadow: 0 0 5px rgba(0, 183, 235, 0.5);
+}
+
+.theme-quantum_blue .login-container button,
+.theme-quantum_blue .hero button,
+.theme-quantum_blue .profile button,
+.theme-quantum_blue .bookmark-form button,
+.theme-quantum_blue .admin-buttons a,
+.theme-quantum_blue .popup-content button,
+.theme-quantum_blue .logout-btn {
+    background: #00b7eb; /* Electric blue buttons */
+    color: #ffffff; /* White text on buttons */
+    box-shadow: 0 0 10px rgba(0, 183, 235, 0.5);
+}
+
+.theme-quantum_blue .login-container button:hover,
+.theme-quantum_blue .hero button:hover,
+.theme-quantum_blue .profile button:hover,
+.theme-quantum_blue .bookmark-form button:hover,
+.theme-quantum_blue .admin-buttons a:hover,
+.theme-quantum_blue .popup-content button:hover,
+.theme-quantum_blue .logout-btn:hover {
+    background: #66d9ff; /* Lighter blue on hover */
+    box-shadow: 0 0 15px rgba(0, 183, 235, 0.7);
+    color: #0d1b2a; /* Darken text for readability */
+}
+
+.theme-quantum_blue .delete-btn {
+    color: #ff0066; /* Pink for delete */
+}
+
+.theme-quantum_blue .delete-btn:hover::after {
+    background: #ff0066;
+}
+
+.theme-quantum_blue .edit-btn {
+    color: #00b7eb; /* Electric blue for edit */
+}
+
+.theme-quantum_blue .edit-btn:hover::after {
+    background: #66d9ff;
+    color: #ffffff;
+}
+
+.theme-quantum_blue .logout-btn,
+.theme-quantum_blue .nav-link {
+    color: #66d9ff; /* Lighter blue for links */
+}
+
+.theme-quantum_blue header,
+.theme-quantum_blue footer {
+    background: linear-gradient(90deg, #1a2a4d, #2a4d7a); /* Blue gradient */
+    border-color: #00b7eb;
+}
+
+.theme-quantum_blue .bookmark-link {
+    border-color: #00b7eb;
+}
+
+.theme-quantum_blue .bookmark-box label {
+    color: #e6f2ff; /* Light blue for bookmark labels */
+}
+
+/* Add spacing for theme selector on profile page */
+.profile .theme-form {
+    margin-bottom: 30px; /* Space between theme form and user info form */
+}
+footer {
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    z-index: 2; /* Above content */
+}
+
+footer p {
+    font-size: 0.9rem;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+}

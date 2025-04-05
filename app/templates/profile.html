@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - Bookmarks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors/master/Blue-Collection/blue-books5.svg">
+    <script>
+        // Auto-submit theme form when selection changes
+        function submitThemeForm() {
+            document.getElementById('theme-form').submit();
+        }
+    </script>
+</head>
+<body class="{{ 'theme-' + (session.theme or 'cyberpunk') }}">
+    <header>
+        <h1>Bookmarks</h1>
+        <div>
+            <span><a href="{{ url_for('main.bookmarks') }}" class="nav-link">Home</a></span>
+            {% if current_user.role == 'admin' %}
+                <span><a href="{{ url_for('main.admin_panel') }}" class="nav-link">Admin Panel</a></span>
+            {% endif %}
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="profile">
+            <h2>Profile</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Theme Selection Form (Auto-Submit) -->
+            <form id="theme-form" method="POST" class="profile-form theme-form">
+                <div class="form-row">
+                    <select name="theme" onchange="submitThemeForm()">
+                        <option value="cyberpunk" {% if user.theme == 'cyberpunk' %}selected{% endif %}>Cyberpunk</option>
+                        <option value="garnet_black" {% if user.theme == 'garnet_black' %}selected{% endif %}>Crimson Abyss</option>
+                        <option value="amethyst_abyss" {% if user.theme == 'amethyst_abyss' %}selected{% endif %}>Amethyst Abyss</option>
+                        <option value="quantum_blue" {% if user.theme == 'quantum_blue' %}selected{% endif %}>Quantum Blue</option>
+                    </select>
+                </div>
+            </form>
+
+            <!-- User Info Update Form -->
+            <form method="POST" class="profile-form">
+                <div class="form-row">
+                    <input type="text" name="real_name" value="{{ user.real_name or '' }}" placeholder="Real Name">
+                    <input type="text" name="new_username" value="{{ user.username }}" placeholder="Username">
+                </div>
+                <div class="form-row">
+                    <input type="email" name="email" value="{{ user.email or '' }}" placeholder="Email">
+                    <input type="password" name="current_password" placeholder="Current Password">
+                </div>
+                <div class="form-row">
+                    <input type="password" name="new_password" placeholder="New Password">
+                    <input type="password" name="confirm_password" placeholder="Confirm New Password">
+                </div>
+                <button type="submit" name="update_profile">Update Profile</button>
+            </form>
+        </section>
+    </main>
+    {% include 'footer.html' %}
+</body>
+</html>

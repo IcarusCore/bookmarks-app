@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete User - Bookmarks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors/master/Blue-Collection/blue-books5.svg">
+    <style>
+        .user-list { margin-top: 20px; }
+        .user-item { padding: 10px; border-bottom: 1px solid #ccc; }
+        .delete-btn { background-color: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+        .delete-btn:hover { background-color: #cc0000; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bookmarks</h1>
+        <div>
+            <span><a href="{{ url_for('main.bookmarks') }}" class="nav-link">Home</a></span>
+            <span><a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a></span>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="user-list">
+            <h2>Delete User (Admin Only)</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if not users %}
+                <p>No users to display.</p>
+            {% else %}
+                <div class="user-list">
+                    {% for user in users %}
+                        <div class="user-item">
+                            <strong>{{ user.username }}</strong>
+                            ({{ user.real_name or 'No name' }}, {{ user.email or 'No email' }}, Role: {{ user.role }})
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="username" value="{{ user.username }}">
+                                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ user.username }}?');">Delete</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <p><a href="{{ url_for('auth.register') }}">Register a new user</a></p>
+        </section>
+    </main>
+    {% include 'footer.html' %}
+
+</body>
+</html>

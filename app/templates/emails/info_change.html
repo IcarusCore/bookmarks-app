@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account Information Updated - Bookmarks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="{{ 'theme-' + (session.theme or 'cyberpunk') }}">
+    <header>
+        <h1>Bookmarks</h1>
+        <div>
+            <span><a href="{{ url_for('main.bookmarks') }}" class="nav-link">Home</a></span>
+            <span><a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a></span>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="profile">
+            <h2>Account Information Updated</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <p>Your account information has been updated.</p>
+            {% if changes.name %}
+                <p><strong>Name:</strong> {{ changes.name }}</p>
+            {% endif %}
+            {% if changes.email %}
+                <p><strong>Email:</strong> {{ changes.email }}</p>
+            {% endif %}
+            {% if changes.username %}
+                <p><strong>Username:</strong> {{ changes.username }}</p>
+            {% endif %}
+            {% if changes.password %}
+                <p><strong>Password:</strong> changed</p>
+            {% endif %}
+            <p>An email confirmation has been sent to your email address.</p>
+            <a href="{{ url_for('main.profile') }}" class="nav-link">Back to Profile</a>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Bookmarks</p>
+    </footer>
+</body>
+</html>

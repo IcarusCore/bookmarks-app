@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookmarks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors/master/Blue-Collection/blue-books5.svg">
+    <script>
+        function showPopup(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function hidePopup(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</head>
+<body class="{{ 'theme-' + (session.theme or 'cyberpunk') }}">
+    <header>
+        <h1>Bookmarks</h1>
+        <div>
+            <span>Welcome, {{ display_name }}!</span>
+            <span><a href="{{ url_for('main.profile') }}" class="nav-link">Profile</a></span>
+            <button onclick="showPopup('bookmarkPopup')" class="logout-btn">Add Bookmark</button>
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <main>
+        <section class="bookmarks">
+            <h2>Your Bookmarks</h2>
+            <div class="bookmark-container">
+                {% for bookmark in bookmarks %}
+                    <div class="bookmark-box">
+                        <a href="{{ url_for('main.bookmarks', delete=bookmark.id) }}" class="delete-btn" onclick="return confirm('Delete {{ bookmark.name }}?');">✖</a>
+                        <a href="#edit-{{ bookmark.id }}" class="edit-btn" onclick="showPopup('editPopup-{{ bookmark.id }}')">🖋️</a>
+                        <img src="{{ bookmark.image_url or '/static/images/default.png' }}" alt="{{ bookmark.name }}" class="bookmark-icon" onerror="this.src='/static/images/default.png';">
+                        <label>{{ bookmark.name }}</label>
+                        <div class="button-group">
+                            {% if bookmark.server_url and not bookmark.domain_url %}
+                                <!-- Show only Server button if server_url exists and domain_url does not -->
+                                <div class="button-wrapper">
+                                    <span class="status-dot {{ 'up' if bookmark.server_status else 'down' }}"></span>
+                                    <a href="{{ bookmark.server_url }}" class="bookmark-link" target="_blank">Server</a>
+                                </div>
+                            {% elif bookmark.domain_url and not bookmark.server_url %}
+                                <!-- Show only Domain button if domain_url exists and server_url does not -->
+                                <div class="button-wrapper">
+                                    <span class="status-dot {{ 'up' if bookmark.server_status else 'down' }}"></span>
+                                    <a href="{{ bookmark.domain_url }}" class="bookmark-link" target="_blank">Domain</a>
+                                </div>
+                            {% elif bookmark.server_url and bookmark.domain_url %}
+                                <!-- Show both buttons if both URLs exist -->
+                                <div class="button-wrapper">
+                                    <span class="status-dot {{ 'up' if bookmark.server_status else 'down' }}"></span>
+                                    <a href="{{ bookmark.server_url }}" class="bookmark-link" target="_blank">Server</a>
+                                </div>
+                                <div class="button-wrapper">
+                                    <span class="status-dot {{ 'up' if bookmark.domain_status else 'down' }}"></span>
+                                    <a href="{{ bookmark.domain_url }}" class="bookmark-link" target="_blank">Domain</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    <p>No bookmarks yet. Add some using the button above!</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    
+    <!-- Add Bookmark Popup -->
+    <div class="popup" id="bookmarkPopup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="hidePopup('bookmarkPopup')">✖</span>
+            <h3>Add Bookmark</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="text" name="name" placeholder="Bookmark Name" required>
+                <input type="url" name="server_url" placeholder="Server Address (optional)">
+                <input type="url" name="domain_url" placeholder="Domain Address (optional)">
+                <input type="file" name="image_upload" accept="image/*">
+                <input type="url" name="image_link" placeholder="Or Image URL">
+                <button type="submit" name="add_bookmark">Add Bookmark</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Edit Bookmark Popups -->
+    {% for bookmark in bookmarks %}
+        <div class="popup" id="editPopup-{{ bookmark.id }}" style="display: none;">
+            <div class="popup-content">
+                <span class="close-btn" onclick="hidePopup('editPopup-{{ bookmark.id }}')">✖</span>
+                <h3>Edit Bookmark</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="bookmark_id" value="{{ bookmark.id }}">
+                    <input type="text" name="name" value="{{ bookmark.name }}" required>
+                    <input type="url" name="server_url" value="{{ bookmark.server_url or '' }}" placeholder="Server Address (optional)">
+                    <input type="url" name="domain_url" value="{{ bookmark.domain_url or '' }}" placeholder="Domain Address (optional)">
+                    <input type="file" name="image_upload" accept="image/*">
+                    <input type="url" name="image_link" value="{{ bookmark.image_url or '' }}" placeholder="Or Image URL">
+                    <button type="submit" name="edit_bookmark">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+    
+    {% include 'footer.html' %}
+</body>
+</html>
