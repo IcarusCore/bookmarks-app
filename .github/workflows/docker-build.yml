@@ -22,4 +22,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/icaruscorp/bookmarks-app:latest
+        tags: ghcr.io/icaruscore/bookmarks-app:latest
