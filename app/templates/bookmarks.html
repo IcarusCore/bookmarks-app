@@ -4,7 +4,6 @@
     <title>Bookmarks</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/hernandito/unRAID-Docker-Folder-Animated-Icons---Alternate-Colors/master/Blue-Collection/blue-books5.svg">
     <script>
         function showPopup(id) {
@@ -37,19 +36,16 @@
                         <label>{{ bookmark.name }}</label>
                         <div class="button-group">
                             {% if bookmark.server_url and not bookmark.domain_url %}
-                                <!-- Show only Server button if server_url exists and domain_url does not -->
                                 <div class="button-wrapper">
                                     <span class="status-dot {{ 'up' if bookmark.server_status else 'down' }}"></span>
                                     <a href="{{ bookmark.server_url }}" class="bookmark-link" target="_blank">Server</a>
                                 </div>
                             {% elif bookmark.domain_url and not bookmark.server_url %}
-                                <!-- Show only Domain button if domain_url exists and server_url does not -->
                                 <div class="button-wrapper">
                                     <span class="status-dot {{ 'up' if bookmark.server_status else 'down' }}"></span>
                                     <a href="{{ bookmark.domain_url }}" class="bookmark-link" target="_blank">Domain</a>
                                 </div>
                             {% elif bookmark.server_url and bookmark.domain_url %}
-                                <!-- Show both buttons if both URLs exist -->
                                 <div class="button-wrapper">
                                     <span class="status-dot {{ 'up' if bookmark.server_status else 'down' }}"></span>
                                     <a href="{{ bookmark.server_url }}" class="bookmark-link" target="_blank">Server</a>
@@ -78,7 +74,7 @@
                 <input type="url" name="server_url" placeholder="Server Address (optional)">
                 <input type="url" name="domain_url" placeholder="Domain Address (optional)">
                 <input type="file" name="image_upload" accept="image/*">
-                <input type="url" name="image_link" placeholder="Or Image URL">
+                <input type="text" name="image_link" placeholder="Or Image URL (e.g., https://example.com/image.png)">
                 <button type="submit" name="add_bookmark">Add Bookmark</button>
             </form>
         </div>
@@ -95,8 +91,16 @@
                     <input type="text" name="name" value="{{ bookmark.name }}" required>
                     <input type="url" name="server_url" value="{{ bookmark.server_url or '' }}" placeholder="Server Address (optional)">
                     <input type="url" name="domain_url" value="{{ bookmark.domain_url or '' }}" placeholder="Domain Address (optional)">
+                    <!-- Display current image if it exists -->
+                    {% if bookmark.image_url %}
+                        <div class="current-image">
+                            <label>Current Image:</label>
+                            <img src="{{ bookmark.image_url }}" alt="Current Image" onerror="this.src='/static/images/default.png';">
+                            <label><input type="checkbox" name="clear_image"> Clear Image</label>
+                        </div>
+                    {% endif %}
                     <input type="file" name="image_upload" accept="image/*">
-                    <input type="url" name="image_link" value="{{ bookmark.image_url or '' }}" placeholder="Or Image URL">
+                    <input type="text" name="image_link" value="{{ bookmark.image_url or '' }}" placeholder="Or Image URL (e.g., https://example.com/image.png)">
                     <button type="submit" name="edit_bookmark">Save Changes</button>
                 </form>
             </div>
@@ -104,5 +108,6 @@
     {% endfor %}
     
     {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
