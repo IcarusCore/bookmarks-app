@@ -20,9 +20,19 @@ VALID_THEMES = ['cyberpunk', 'garnet_black', 'amethyst_abyss', 'quantum_blue']
 def validate_email_address(email):
     if not email:
         return False
-    # Simple regex for email validation
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     return bool(re.match(pattern, email))
+
+# Validate URL (for image_link)
+def validate_url(url):
+    if not url:
+        return True  # Empty URL is valid (will be handled as None)
+    # Allow local paths starting with /static/images/
+    if url.startswith('/static/images/'):
+        return True
+    # Otherwise, ensure it's a valid URL starting with http:// or https://
+    pattern = r'^https?://[^\s/$.?#].[^\s]*$'
+    return bool(re.match(pattern, url))
 
 def check_url_status(url):
     if not url:
@@ -50,17 +60,29 @@ def bookmarks():
             server_url = request.form.get('server_url') or None
             domain_url = request.form.get('domain_url') or None
             image_url = request.form.get('image_link') or None
-            
+
+            # Validate image_link if provided
+            if image_url and not validate_url(image_url):
+                flash('Invalid image URL. Must start with http:// or https://.', 'error')
+                return redirect(url_for('main.bookmarks'))
+
             if 'image_upload' in request.files and request.files['image_upload'].filename:
                 file = request.files['image_upload']
                 filename = secure_filename(file.filename)
                 filename = f"{os.urandom(8).hex()}-{filename}"
-                file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                print(f"Saving uploaded image to: {file_path}")
+                file.save(file_path)
+                if os.path.exists(file_path):
+                    print(f"Image saved successfully: {file_path}")
+                else:
+                    print(f"Failed to save image: {file_path}")
                 image_url = f"/static/images/{filename}"
-            
+
             bookmark = Bookmark(user_id=current_user.id, name=name, server_url=server_url, domain_url=domain_url, image_url=image_url)
             db.session.add(bookmark)
             db.session.commit()
+            flash('Bookmark added successfully!', 'success')
             return redirect(url_for('main.bookmarks'))
         
         if 'edit_bookmark' in request.form:
@@ -73,33 +95,93 @@ def bookmarks():
             bookmark.name = request.form['name']
             bookmark.server_url = request.form.get('server_url') or None
             bookmark.domain_url = request.form.get('domain_url') or None
-            
-            if request.form.get('image_link'):
-                bookmark.image_url = request.form['image_link']
+
+            # Handle image updates
+            clear_image = 'clear_image' in request.form  # Check if the user wants to clear the image
+            image_url = request.form.get('image_link') or None
+
+            # Validate image_link if provided
+            if image_url and not validate_url(image_url):
+                flash('Invalid image URL. Must start with http:// or https://.', 'error')
+                return redirect(url_for('main.bookmarks'))
+
+            # Log the current state
+            print(f"Editing bookmark {bookmark_id}. Current image_url: {bookmark.image_url}")
+            print(f"Clear image: {clear_image}, New image_url: {image_url}, Image upload present: {'image_upload' in request.files and request.files['image_upload'].filename}")
+
+            # Determine the new image_url
+            if clear_image:
+                # Clear the image: delete the old file if it exists and set image_url to None
+                if bookmark.image_url and bookmark.image_url.startswith('/static/images/'):
+                    old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], bookmark.image_url.split('/')[-1])
+                    print(f"Clearing image. Deleting old image: {old_image_path}")
+                    if os.path.exists(old_image_path):
+                        os.remove(old_image_path)
+                        print(f"Old image deleted: {old_image_path}")
+                    else:
+                        print(f"Old image not found: {old_image_path}")
+                bookmark.image_url = None
             elif 'image_upload' in request.files and request.files['image_upload'].filename:
+                # New image uploaded: delete the old file if it exists, save the new file
+                if bookmark.image_url and bookmark.image_url.startswith('/static/images/'):
+                    old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], bookmark.image_url.split('/')[-1])
+                    print(f"New image uploaded. Deleting old image: {old_image_path}")
+                    if os.path.exists(old_image_path):
+                        os.remove(old_image_path)
+                        print(f"Old image deleted: {old_image_path}")
+                    else:
+                        print(f"Old image not found: {old_image_path}")
                 file = request.files['image_upload']
                 filename = secure_filename(file.filename)
                 filename = f"{os.urandom(8).hex()}-{filename}"
-                file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                print(f"Saving new image to: {file_path}")
+                file.save(file_path)
+                if os.path.exists(file_path):
+                    print(f"New image saved successfully: {file_path}")
+                else:
+                    print(f"Failed to save new image: {file_path}")
                 bookmark.image_url = f"/static/images/{filename}"
-            
+            elif image_url and image_url != bookmark.image_url:
+                # New image URL provided and it's different: delete the old file if it exists, set the new URL
+                if bookmark.image_url and bookmark.image_url.startswith('/static/images/'):
+                    old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], bookmark.image_url.split('/')[-1])
+                    print(f"New image URL provided. Deleting old image: {old_image_path}")
+                    if os.path.exists(old_image_path):
+                        os.remove(old_image_path)
+                        print(f"Old image deleted: {old_image_path}")
+                    else:
+                        print(f"Old image not found: {old_image_path}")
+                bookmark.image_url = image_url
+            # If none of the above, keep the existing image_url
+            print(f"Final image_url after edit: {bookmark.image_url}")
+
             db.session.commit()
+            flash('Bookmark updated successfully!', 'success')
             return redirect(url_for('main.bookmarks'))
     
     if 'delete' in request.args:
         bookmark_id = request.args.get('delete')
         bookmark = Bookmark.query.get_or_404(bookmark_id)
         if bookmark.user_id == current_user.id:
-            if bookmark.image_url and os.path.exists(os.path.join(current_app.config['UPLOAD_FOLDER'], bookmark.image_url.split('/')[-1])):
-                os.remove(os.path.join(current_app.config['UPLOAD_FOLDER'], bookmark.image_url.split('/')[-1]))
+            if bookmark.image_url and bookmark.image_url.startswith('/static/images/'):
+                old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], bookmark.image_url.split('/')[-1])
+                print(f"Deleting bookmark {bookmark_id}. Deleting image: {old_image_path}")
+                if os.path.exists(old_image_path):
+                    os.remove(old_image_path)
+                    print(f"Image deleted: {old_image_path}")
+                else:
+                    print(f"Image not found: {old_image_path}")
             db.session.delete(bookmark)
             db.session.commit()
+            flash('Bookmark deleted successfully!', 'success')
         return redirect(url_for('main.bookmarks'))
     
     bookmarks = Bookmark.query.filter_by(user_id=current_user.id).all()
     for bookmark in bookmarks:
         bookmark.server_status = check_url_status(bookmark.server_url)
         bookmark.domain_status = check_url_status(bookmark.domain_url)
+        print(f"Bookmark {bookmark.id}: image_url={bookmark.image_url}")
     return render_template('bookmarks.html', bookmarks=bookmarks, display_name=current_user.real_name or current_user.username)
 
 @main_bp.route('/profile', methods=['GET', 'POST'])
