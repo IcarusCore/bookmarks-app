@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Button animation for any button with id="animateBtn"
     const btn = document.getElementById('animateBtn');
     if (btn) {
         btn.addEventListener('click', () => {
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Background animation with moving lines
     const backgroundDiv = document.getElementById('background');
     if (backgroundDiv) {
         const canvas = document.createElement('canvas');
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Check URL status for status dots
     const statusDots = document.querySelectorAll('.status-dot');
     statusDots.forEach(dot => {
         const url = dot.getAttribute('data-url');
@@ -99,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Add Bookmark popup functionality
     const addBookmarkBtn = document.getElementById('addBookmarkBtn');
     const bookmarkPopup = document.getElementById('bookmarkPopup');
     const closePopup = document.getElementById('closePopup');
@@ -120,4 +124,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Client-side validation for image_link fields in forms
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            const imageLink = form.querySelector('input[name="image_link"]');
+            if (imageLink && imageLink.value) {
+                const urlPattern = /^(https?:\/\/[^\s/$.?#].[^\s]*)$|^(\/static\/images\/.*)$/;
+                if (!urlPattern.test(imageLink.value)) {
+                    e.preventDefault();
+                    alert('Invalid image URL. Must start with http:// or https://, or be a local path like /static/images/...');
+                }
+            }
+        });
+    });
 });
