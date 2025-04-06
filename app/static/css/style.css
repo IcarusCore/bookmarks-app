@@ -197,6 +197,176 @@ body.theme-garnet_black {
     color: #ffffff; /* Ensure bookmark names are readable */
 }
 
+/* Theme: Amethyst Abyss */
+body.theme-amethyst_abyss {
+    background: #1a0d2a !important; /* Dark grayish-purple background */
+    color: #e6ccff; /* Light purple text for readability */
+}
+
+.theme-amethyst_abyss .login-container,
+.theme-amethyst_abyss .hero,
+.theme-amethyst_abyss .bookmarks,
+.theme-amethyst_abyss .profile,
+.theme-amethyst_abyss .bookmark-box,
+.theme-amethyst_abyss .user-item,
+.theme-amethyst_abyss .popup-content {
+    background: linear-gradient(135deg, #2a1a4d, #4d2a7a); /* Purple gradient */
+    border: 1px solid #9b00ff; /* Neon purple border */
+    box-shadow: 0 0 20px rgba(155, 0, 255, 0.3); /* Purple glow */
+}
+
+.theme-amethyst_abyss h1,
+.theme-amethyst_abyss h2,
+.theme-amethyst_abyss h3 {
+    color: #9b00ff; /* Neon purple headings */
+    text-shadow: 0 0 5px rgba(155, 0, 255, 0.5);
+}
+
+.theme-amethyst_abyss .login-container button,
+.theme-amethyst_abyss .hero button,
+.theme-amethyst_abyss .profile button,
+.theme-amethyst_abyss .bookmark-form button,
+.theme-amethyst_abyss .admin-buttons a,
+.theme-amethyst_abyss .popup-content button,
+.theme-amethyst_abyss .logout-btn {
+    background: #9b00ff; /* Neon purple buttons */
+    color: #ffffff; /* White text on buttons */
+    box-shadow: 0 0 10px rgba(155, 0, 255, 0.5);
+}
+
+.theme-amethyst_abyss .login-container button:hover,
+.theme-amethyst_abyss .hero button:hover,
+.theme-amethyst_abyss .profile button:hover,
+.theme-amethyst_abyss .bookmark-form button:hover,
+.theme-amethyst_abyss .admin-buttons a:hover,
+.theme-amethyst_abyss .popup-content button:hover,
+.theme-amethyst_abyss .logout-btn:hover {
+    background: #cc66ff; /* Lighter purple on hover */
+    box-shadow: 0 0 15px rgba(155, 0, 255, 0.7);
+    color: #ffffff; /* Ensure text stays white and readable */
+}
+
+.theme-amethyst_abyss .delete-btn {
+    color: #ff0066; /* Pink for delete */
+}
+
+.theme-amethyst_abyss .delete-btn:hover::after {
+    background: #ff0066;
+}
+
+.theme-amethyst_abyss .edit-btn {
+    color: #9b00ff; /* Neon purple for edit */
+}
+
+.theme-amethyst_abyss .edit-btn:hover::after {
+    background: #cc66ff;
+    color: #ffffff;
+}
+
+.theme-amethyst_abyss .logout-btn,
+.theme-amethyst_abyss .nav-link {
+    color: #cc66ff; /* Lighter purple for links */
+}
+
+.theme-amethyst_abyss header,
+.theme-amethyst_abyss footer {
+    background: linear-gradient(90deg, #2a1a4d, #4d2a7a); /* Purple gradient */
+    border-color: #9b00ff;
+}
+
+.theme-amethyst_abyss .bookmark-link {
+    border-color: #9b00ff;
+}
+
+.theme-amethyst_abyss .bookmark-box label {
+    color: #e6ccff; /* Light purple for bookmark labels */
+}
+
+/* Theme: Quantum Blue */
+body.theme-quantum_blue {
+    background: #0d1a2a !important; /* Dark blue-black background */
+    color: #e6f2ff; /* Light blue text for readability */
+}
+
+.theme-quantum_blue .login-container,
+.theme-quantum_blue .hero,
+.theme-quantum_blue .bookmarks,
+.theme-quantum_blue .profile,
+.theme-quantum_blue .bookmark-box,
+.theme-quantum_blue .user-item,
+.theme-quantum_blue .popup-content {
+    background: linear-gradient(135deg, #1a2a4d, #2a4d7a); /* Blue gradient */
+    border: 1px solid #00b7eb; /* Electric blue border */
+    box-shadow: 0 0 20px rgba(0, 183, 235, 0.3); /* Blue glow */
+}
+
+.theme-quantum_blue h1,
+.theme-quantum_blue h2,
+.theme-quantum_blue h3 {
+    color: #00b7eb; /* Electric blue headings */
+    text-shadow: 0 0 5px rgba(0, 183, 235, 0.5);
+}
+
+.theme-quantum_blue .login-container button,
+.theme-quantum_blue .hero button,
+.theme-quantum_blue .profile button,
+.theme-quantum_blue .bookmark-form button,
+.theme-quantum_blue .admin-buttons a,
+.theme-quantum_blue .popup-content button,
+.theme-quantum_blue .logout-btn {
+    background: #00b7eb; /* Electric blue buttons */
+    color: #ffffff; /* White text on buttons */
+    box-shadow: 0 0 10px rgba(0, 183, 235, 0.5);
+}
+
+.theme-quantum_blue .login-container button:hover,
+.theme-quantum_blue .hero button:hover,
+.theme-quantum_blue .profile button:hover,
+.theme-quantum_blue .bookmark-form button:hover,
+.theme-quantum_blue .admin-buttons a:hover,
+.theme-quantum_blue .popup-content button:hover,
+.theme-quantum_blue .logout-btn:hover {
+    background: #66d9ff; /* Lighter blue on hover */
+    box-shadow: 0 0 15px rgba(0, 183, 235, 0.7);
+    color: #0d1b2a; /* Darken text for readability */
+}
+
+.theme-quantum_blue .delete-btn {
+    color: #ff0066; /* Pink for delete */
+}
+
+.theme-quantum_blue .delete-btn:hover::after {
+    background: #ff0066;
+}
+
+.theme-quantum_blue .edit-btn {
+    color: #00b7eb; /* Electric blue for edit */
+}
+
+.theme-quantum_blue .edit-btn:hover::after {
+    background: #66d9ff;
+    color: #ffffff;
+}
+
+.theme-quantum_blue .logout-btn,
+.theme-quantum_blue .nav-link {
+    color: #66d9ff; /* Lighter blue for links */
+}
+
+.theme-quantum_blue header,
+.theme-quantum_blue footer {
+    background: linear-gradient(90deg, #1a2a4d, #2a4d7a); /* Blue gradient */
+    border-color: #00b7eb;
+}
+
+.theme-quantum_blue .bookmark-link {
+    border-color: #00b7eb;
+}
+
+.theme-quantum_blue .bookmark-box label {
+    color: #e6f2ff; /* Light blue for bookmark labels */
+}
+
 /* General styles */
 .login-container {
     position: relative;
@@ -598,8 +768,10 @@ footer p {
 .popup-content {
     padding: 2rem;
     border-radius: 10px;
-    width: 90%;
-    max-width: 420px;
+    width: 900px; /* Increased width for a wider popup */
+    max-width: 90%; /* Ensure it doesn't exceed the viewport width */
+    max-height: 110vh; /* Reduced max height to make it less tall */
+    overflow-y: auto; /* Add scroll if content overflows */
     position: relative;
     z-index: 1001;
 }
@@ -613,16 +785,28 @@ footer p {
     letter-spacing: 1px;
 }
 
-.popup-content input {
+.popup-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between form elements */
+}
+
+.popup-content input[type="text"],
+.popup-content input[type="url"],
+.popup-content input[type="file"] {
     width: 100%;
     padding: 0.9rem;
-    margin: 0.8rem 0;
+    margin: 0;
     border: 1px solid #778da9;
     border-radius: 5px;
     background: rgba(11, 19, 43, 0.8);
     font-size: 1rem;
     color: #e0e1dd;
     transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.popup-content input[type="file"] {
+    padding: 5px; /* Adjust padding for file input */
 }
 
 .popup-content input:focus {
@@ -716,192 +900,27 @@ footer p {
     color: #e0e1dd !important; /* Slightly off-white on hover */
 }
 
-/* Theme: Amethyst Abyss */
-body.theme-amethyst_abyss {
-    background: #1a0d2a !important; /* Dark grayish-purple background */
-    color: #e6ccff; /* Light purple text for readability */
-}
-
-.theme-amethyst_abyss .login-container,
-.theme-amethyst_abyss .hero,
-.theme-amethyst_abyss .bookmarks,
-.theme-amethyst_abyss .profile,
-.theme-amethyst_abyss .bookmark-box,
-.theme-amethyst_abyss .user-item,
-.theme-amethyst_abyss .popup-content {
-    background: linear-gradient(135deg, #2a1a4d, #4d2a7a); /* Purple gradient */
-    border: 1px solid #9b00ff; /* Neon purple border */
-    box-shadow: 0 0 20px rgba(155, 0, 255, 0.3); /* Purple glow */
-}
-
-.theme-amethyst_abyss h1,
-.theme-amethyst_abyss h2,
-.theme-amethyst_abyss h3 {
-    color: #9b00ff; /* Neon purple headings */
-    text-shadow: 0 0 5px rgba(155, 0, 255, 0.5);
-}
-
-.theme-amethyst_abyss .login-container button,
-.theme-amethyst_abyss .hero button,
-.theme-amethyst_abyss .profile button,
-.theme-amethyst_abyss .bookmark-form button,
-.theme-amethyst_abyss .admin-buttons a,
-.theme-amethyst_abyss .popup-content button,
-.theme-amethyst_abyss .logout-btn {
-    background: #9b00ff; /* Neon purple buttons */
-    color: #ffffff; /* White text on buttons */
-    box-shadow: 0 0 10px rgba(155, 0, 255, 0.5);
-}
-
-.theme-amethyst_abyss .login-container button:hover,
-.theme-amethyst_abyss .hero button:hover,
-.theme-amethyst_abyss .profile button:hover,
-.theme-amethyst_abyss .bookmark-form button:hover,
-.theme-amethyst_abyss .admin-buttons a:hover,
-.theme-amethyst_abyss .popup-content button:hover,
-.theme-amethyst_abyss .logout-btn:hover {
-    background: #cc66ff; /* Lighter purple on hover */
-    box-shadow: 0 0 15px rgba(155, 0, 255, 0.7);
-    color: #ffffff; /* Ensure text stays white and readable */
-}
-
-.theme-amethyst_abyss .delete-btn {
-    color: #ff0066; /* Pink for delete */
-}
-
-.theme-amethyst_abyss .delete-btn:hover::after {
-    background: #ff0066;
-}
-
-.theme-amethyst_abyss .edit-btn {
-    color: #9b00ff; /* Neon purple for edit */
-}
-
-.theme-amethyst_abyss .edit-btn:hover::after {
-    background: #cc66ff;
-    color: #ffffff;
-}
-
-.theme-amethyst_abyss .logout-btn,
-.theme-amethyst_abyss .nav-link {
-    color: #cc66ff; /* Lighter purple for links */
-}
-
-.theme-amethyst_abyss header,
-.theme-amethyst_abyss footer {
-    background: linear-gradient(90deg, #2a1a4d, #4d2a7a); /* Purple gradient */
-    border-color: #9b00ff;
-}
-
-.theme-amethyst_abyss .bookmark-link {
-    border-color: #9b00ff;
-}
-
-.theme-amethyst_abyss .bookmark-box label {
-    color: #e6ccff; /* Light purple for bookmark labels */
-}
-
-/* Theme: Quantum Blue */
-body.theme-quantum_blue {
-    background: #0d1a2a !important; /* Dark blue-black background */
-    color: #e6f2ff; /* Light blue text for readability */
-}
-
-.theme-quantum_blue .login-container,
-.theme-quantum_blue .hero,
-.theme-quantum_blue .bookmarks,
-.theme-quantum_blue .profile,
-.theme-quantum_blue .bookmark-box,
-.theme-quantum_blue .user-item,
-.theme-quantum_blue .popup-content {
-    background: linear-gradient(135deg, #1a2a4d, #2a4d7a); /* Blue gradient */
-    border: 1px solid #00b7eb; /* Electric blue border */
-    box-shadow: 0 0 20px rgba(0, 183, 235, 0.3); /* Blue glow */
-}
-
-.theme-quantum_blue h1,
-.theme-quantum_blue h2,
-.theme-quantum_blue h3 {
-    color: #00b7eb; /* Electric blue headings */
-    text-shadow: 0 0 5px rgba(0, 183, 235, 0.5);
-}
-
-.theme-quantum_blue .login-container button,
-.theme-quantum_blue .hero button,
-.theme-quantum_blue .profile button,
-.theme-quantum_blue .bookmark-form button,
-.theme-quantum_blue .admin-buttons a,
-.theme-quantum_blue .popup-content button,
-.theme-quantum_blue .logout-btn {
-    background: #00b7eb; /* Electric blue buttons */
-    color: #ffffff; /* White text on buttons */
-    box-shadow: 0 0 10px rgba(0, 183, 235, 0.5);
-}
-
-.theme-quantum_blue .login-container button:hover,
-.theme-quantum_blue .hero button:hover,
-.theme-quantum_blue .profile button:hover,
-.theme-quantum_blue .bookmark-form button:hover,
-.theme-quantum_blue .admin-buttons a:hover,
-.theme-quantum_blue .popup-content button:hover,
-.theme-quantum_blue .logout-btn:hover {
-    background: #66d9ff; /* Lighter blue on hover */
-    box-shadow: 0 0 15px rgba(0, 183, 235, 0.7);
-    color: #0d1b2a; /* Darken text for readability */
-}
-
-.theme-quantum_blue .delete-btn {
-    color: #ff0066; /* Pink for delete */
-}
-
-.theme-quantum_blue .delete-btn:hover::after {
-    background: #ff0066;
-}
-
-.theme-quantum_blue .edit-btn {
-    color: #00b7eb; /* Electric blue for edit */
-}
-
-.theme-quantum_blue .edit-btn:hover::after {
-    background: #66d9ff;
-    color: #ffffff;
-}
-
-.theme-quantum_blue .logout-btn,
-.theme-quantum_blue .nav-link {
-    color: #66d9ff; /* Lighter blue for links */
-}
-
-.theme-quantum_blue header,
-.theme-quantum_blue footer {
-    background: linear-gradient(90deg, #1a2a4d, #2a4d7a); /* Blue gradient */
-    border-color: #00b7eb;
-}
-
-.theme-quantum_blue .bookmark-link {
-    border-color: #00b7eb;
-}
-
-.theme-quantum_blue .bookmark-box label {
-    color: #e6f2ff; /* Light blue for bookmark labels */
-}
-
 /* Add spacing for theme selector on profile page */
 .profile .theme-form {
     margin-bottom: 30px; /* Space between theme form and user info form */
 }
-footer {
+
+/* Current image preview in edit popup */
+.current-image {
+    margin: 10px 0;
     text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    z-index: 2; /* Above content */
 }
 
-footer p {
-    font-size: 0.9rem;
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+.current-image label {
+    color: #e0e1dd;
+    margin: 5px 0;
+    display: block;
+}
+
+.current-image img {
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #778da9;
+    border-radius: 5px;
+    margin: 5px 0;
 }
